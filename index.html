@@ -1,0 +1,2129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌿 Berger Connect - Gestion Pastorale</title>
+    <style>
+        /* COULEURS BASÉES SUR LE LOGO */
+        :root {
+            --vert-principal: #1e7e34;      /* Vert forêt du logo */
+            --vert-clair: #2ecc71;          /* Vert plus clair */
+            --vert-fonce: #186327;          /* Vert plus foncé */
+            --noir: #2c3e50;                /* Noir du logo adapté */
+            --gris-fonce: #34495e;          /* Pour les contrastes */
+            --gris-clair: #ecf0f1;          /* Arrière-plan clair */
+            --blanc: #ffffff;               /* Blanc pur */
+        }
+        
+        /* RESET ET BASES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+           background: url('imageberger.jpg') no-repeat center center fixed;
+           background-size: cover;
+           color: var(--noir);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* ANIMATION DE BIENVENUE AVEC LOGO */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('imageberger.jpg') no-repeat center center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeOut 3s ease-in-out 2s forwards;
+        }
+        
+        .logo-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .logo-circle {
+            width: 150px;
+            height: 150px;
+            background-color: var(--blanc);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite alternate;
+        }
+        
+        .church-logo-text {
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--vert-fonce);
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .welcome-text {
+            color: var(--blanc);
+            font-size: 2.5rem;
+            text-align: center;
+            animation: slideIn 1s ease-out;
+            margin-bottom: 0.5rem;
+        }
+        
+        .welcome-subtext {
+            color: var(--gris-clair);
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            animation: fadeIn 1s ease-out 1s both;
+            text-align: center;
+            max-width: 80%;
+        }
+        
+        @keyframes pulse {
+            from { transform: scale(1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+            to { transform: scale(1.05); box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            0% { opacity: 1; visibility: visible; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+        
+        /* NAVIGATION VERTICALE À DROITE - THEME VERT */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(180deg, var(--vert-fonce) 0%, var(--vert-principal) 100%);
+            color: var(--blanc);
+            padding: 2rem 0;
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        
+        .church-logo {
+            text-align: center;
+            padding: 1rem;
+            border-bottom: 2px solid var(--vert-clair);
+            margin-bottom: 2rem;
+        }
+        
+        .church-logo .logo-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--blanc);
+        }
+        
+        .church-logo h2 {
+            font-size: 1.1rem;
+            color: var(--blanc);
+            margin-bottom: 0.3rem;
+        }
+        
+        .church-logo .verse {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin: 0.5rem 1rem;
+        }
+        
+        .nav-menu a {
+            color: var(--gris-clair);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-menu a:hover {
+            background-color: var(--vert-clair);
+            transform: translateX(-5px);
+            color: var(--blanc);
+        }
+        
+        .nav-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--vert-clair);
+            color: var(--blanc);
+        }
+        
+        .nav-icon {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* CONTENU PRINCIPAL */
+        /* Pour garder les sections blanches */
+.main-content {
+    flex: 1;
+    margin-right: 250px;
+    padding: 2rem;
+    /* PAS de background-color ici ! */
+}
+        
+        /* HEADER PRINCIPAL */
+        .main-header {
+            background: var(--blanc);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid var(--vert-principal);
+        }
+        
+        .header-title h1 {
+            color: var(--vert-fonce);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header-title p {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        .current-date {
+            background: var(--vert-principal);
+            color: var(--blanc);
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(30, 126, 52, 0.3);
+        }
+        
+        /* SECTION PRINCIPALE */
+        .section {
+            background: var(--blanc);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            display: none;
+            border-top: 3px solid var(--vert-clair);
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gris-clair);
+        }
+        
+        .section-header h2 {
+            color: var(--vert-fonce);
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-icon {
+            margin-right: 10px;
+            font-size: 1.5rem;
+            color: var(--vert-principal);
+        }
+        
+        /* BOUTONS PRINCIPAUX - THEME VERT */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--vert-principal), var(--vert-fonce));
+            color: var(--blanc);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(30, 126, 52, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(30, 126, 52, 0.4);
+            background: linear-gradient(135deg, var(--vert-fonce), var(--vert-principal));
+        }
+        
+        .add-row-btn {
+            background: var(--vert-clair);
+            color: var(--blanc);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            transition: background 0.3s;
+            box-shadow: 0 4px 6px rgba(46, 204, 113, 0.3);
+        }
+        
+        .add-row-btn:hover {
+            background: #27ae60;
+            box-shadow: 0 6px 8px rgba(46, 204, 113, 0.4);
+        }
+        
+        .btn-icon {
+            margin-right: 8px;
+        }
+        
+        .action-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-right: 5px;
+            transition: all 0.3s;
+        }
+        
+        .edit-btn {
+            background: var(--vert-principal);
+            color: var(--blanc);
+        }
+        
+        .edit-btn:hover {
+            background: var(--vert-fonce);
+        }
+        
+        .delete-btn {
+            background: #e74c3c;
+            color: var(--blanc);
+        }
+        
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+        
+        .save-btn {
+            background: var(--vert-clair);
+            color: var(--blanc);
+        }
+        
+        .save-btn:hover {
+            background: #27ae60;
+        }
+        
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-planifie { background: var(--vert-principal); color: var(--blanc); }
+        .status-confirme { background: var(--vert-clair); color: var(--blanc); }
+        .status-termine { background: #9b59b6; color: var(--blanc); }
+        .status-annule { background: #e74c3c; color: var(--blanc); }
+        
+        /* TABLEAU D'ÉVANGÉLISATION */
+        .evangelisation-table, .visites-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .evangelisation-table th, .visites-table th {
+            background: var(--vert-fonce);
+            color: var(--blanc);
+            padding: 1rem;
+            text-align: left;
+            position: sticky;
+            top: 0;
+        }
+        
+        .evangelisation-table td, .visites-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gris-clair);
+        }
+        
+        .evangelisation-table tr:hover, .visites-table tr:hover {
+            background-color: rgba(30, 126, 52, 0.05);
+        }
+        
+        /* STATISTIQUES - THEME VERT */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: var(--blanc);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            border-top: 4px solid var(--vert-principal);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(30, 126, 52, 0.15);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--vert-principal);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        /* FORMULAIRES */
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--vert-principal);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(30, 126, 52, 0.2);
+        }
+        
+        /* RESSOURCES */
+        .ressource-header {
+            background: var(--vert-fonce);
+            color: var(--blanc);
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .event-item {
+            background: rgba(30, 126, 52, 0.05);
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--vert-principal);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 200px;
+            }
+            
+            .main-content {
+                margin-right: 200px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                margin-right: 0;
+            }
+            
+            .nav-menu {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-menu li {
+                margin: 0.3rem;
+            }
+            
+            .nav-menu a {
+                padding: 0.5rem 1rem;
+            }
+            
+            .main-content {
+                margin-right: 0;
+                padding: 1rem;
+            }
+            
+            .main-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .welcome-text {
+                font-size: 2rem;
+            }
+            
+            .logo-circle {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .church-logo-text {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .section-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .welcome-text {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ANIMATION DE BIENVENUE AVEC LOGO -->
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <div class="logo-container">
+    <div class="logo-circle">
+        <!-- Remplacez "logo-eglise.png" par le nom de votre fichier image -->
+        <img src="logo-eglise.webp" alt="Centre Chrétien de Réveil" 
+             style="width: 120px; height: auto; border-radius: 50%;">
+    </div>
+</div>
+        <div class="welcome-text">Bienvenue, Berger</div>
+        <div class="welcome-subtext">Que Dieu bénisse votre ministère et vous guide dans la gestion du troupeau</div>
+    </div>
+    
+    <!-- NAVIGATION VERTICALE DROITE -->
+    <nav class="sidebar">
+       <div class="church-logo">
+    <!-- Remplacez "logo-icon.png" par le nom de votre fichier image -->
+    <img src="logo-eglise.jpg" alt="Logo" 
+         style="width: 60px; height: 60px; margin-bottom: 10px; border-radius: 50%;">
+    <h2>Centre Chrétien de Réveil</h2>
+    <p class="verse">Jean 10:11</p>
+</div>
+        
+        <ul class="nav-menu">
+            <li><a href="#accueil" class="active" onclick="showSection('accueil')">
+                <span class="nav-icon">🏠</span> Accueil
+            </a></li>
+            
+            <li><a href="#membres" onclick="showSection('membres')">
+                <span class="nav-icon">👥</span> Membres
+            </a></li>
+            
+            <li><a href="#evangelisation" onclick="showSection('evangelisation')">
+                <span class="nav-icon">📢</span> Évangélisation
+            </a></li>
+            
+            <li><a href="#planning" onclick="showSection('planning')">
+                <span class="nav-icon">📅</span> Planning Hebdo
+            </a></li>
+            
+            <li><a href="#visites" onclick="showSection('visites')">
+                <span class="nav-icon">🚶</span> Visites
+            </a></li>
+            
+            <li><a href="#ressources" onclick="showSection('ressources')">
+                <span class="nav-icon">📚</span> Ressources
+            </a></li>
+            
+            <li><a href="#statistiques" onclick="showSection('statistiques')">
+                <span class="nav-icon">📊</span> Statistiques
+            </a></li>
+            
+            <li><a href="#parametres" onclick="showSection('parametres')">
+                <span class="nav-icon">⚙️</span> Paramètres
+            </a></li>
+        </ul>
+        
+        <div style="margin-top: auto; padding: 1rem; text-align: center;">
+            <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.9rem; margin-bottom: 1rem;">
+                Connecté en tant que <strong>Berger</strong>
+            </div>
+            <button onclick="deconnexion()" style="
+                background: #e74c3c;
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 100%;
+                transition: background 0.3s;
+            " onmouseover="this.style.background='#c0392b'" 
+            onmouseout="this.style.background='#e74c3c'">
+                Se déconnecter
+            </button>
+        </div>
+    </nav>
+    
+    <!-- CONTENU PRINCIPAL -->
+    <main class="main-content">
+        <!-- EN-TÊTE PRINCIPALE -->
+        <header class="main-header">
+            <div class="header-title">
+                <h1>Tableau de Bord Pastoral</h1>
+                <p>"Paissez le troupeau de Dieu qui est sous votre garde" - 1 Pierre 5:2</p>
+            </div>
+            <div class="current-date" id="currentDate">
+                <!-- La date s'affichera ici -->
+            </div>
+        </header>
+        
+        <!-- SECTION ACCUEIL -->
+        <section id="accueil" class="section active">
+            <div class="section-header">
+                <h2><span class="section-icon">🏠</span> Tableau de Bord</h2>
+                <button class="btn-primary" onclick="showSection('membres')">
+                    <span class="btn-icon">👥</span> Gérer les membres
+                </button>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalMembres">0</div>
+                    <div class="stat-label">Membres Actifs</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="totalVisites">0</div>
+                    <div class="stat-label">Visites cette semaine</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="totalEvangelisation">0</div>
+                    <div class="stat-label">Sorties d'évangélisation</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="nouveauxMembres">0</div>
+                    <div class="stat-label">Nouveaux ce mois</div>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                <div>
+                    <h3 style="color: var(--vert-fonce); margin-bottom: 1rem;">📅 Agenda d'aujourd'hui</h3>
+                    <div id="agendaAujourdhui" style="background: white; padding: 1rem; border-radius: 10px; min-height: 200px; border: 2px solid var(--gris-clair);">
+                        <!-- Les événements seront ajoutés ici -->
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="color: var(--vert-fonce); margin-bottom: 1rem;">🙏 Sujets de prière urgents</h3>
+                    <div id="sujetsPriere" style="background: white; padding: 1rem; border-radius: 10px; min-height: 200px; border: 2px solid var(--gris-clair);">
+                        <textarea placeholder="Ajoutez des sujets de prière ici..." id="priereTextarea"
+                                  style="width: 100%; height: 150px; padding: 1rem; border: 2px solid #ddd; border-radius: 5px; font-size: 1rem;"></textarea>
+                        <button class="btn-primary" onclick="sauvegarderPrieres()" style="margin-top: 1rem; padding: 0.5rem 1rem;">
+                            💾 Sauvegarder
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SECTION MEMBRES -->
+        <section id="membres" class="section">
+            <div class="section-header">
+                <h2><span class="section-icon">👥</span> Gestion des Membres</h2>
+                <button class="btn-primary" onclick="ajouterMembreModal()">
+                    <span class="btn-icon">➕</span> Ajouter un membre
+                </button>
+            </div>
+            
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: var(--vert-fonce); color: white;">
+                            <th style="padding: 1rem;">Nom</th>
+                            <th style="padding: 1rem;">Prénom</th>
+                            <th style="padding: 1rem;">Téléphone</th>
+                            <th style="padding: 1rem;">Statut</th>
+                            <th style="padding: 1rem;">Date d'adhésion</th>
+                            <th style="padding: 1rem;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listeMembres">
+                        <!-- Les membres seront ajoutés ici -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- SECTION ÉVANGÉLISATION -->
+        <section id="evangelisation" class="section">
+            <div class="section-header">
+                <h2><span class="section-icon">📢</span> Suivi des Évangélisations</h2>
+                <button class="btn-primary" onclick="ajouterRapportEvangelisation()">
+                    <span class="btn-icon">📄</span> Nouveau rapport
+                </button>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card" style="background: linear-gradient(135deg, var(--vert-principal), var(--vert-fonce)); color: white;">
+                    <div class="stat-number" id="totalSorties">0</div>
+                    <div class="stat-label">Sorties ce mois</div>
+                </div>
+                
+                <div class="stat-card" style="background: linear-gradient(135deg, var(--vert-clair), #27ae60); color: white;">
+                    <div class="stat-number" id="contactsEtablis">0</div>
+                    <div class="stat-label">Contacts établis</div>
+                </div>
+                
+                <div class="stat-card" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white;">
+                    <div class="stat-number" id="nouveauxInteresses">0</div>
+                    <div class="stat-label">Nouveaux intéressés</div>
+                </div>
+                
+                <div class="stat-card" style="background: linear-gradient(135deg, #e74c3c, #c0392b); color: white;">
+                    <div class="stat-number" id="tauxConversion">0%</div>
+                    <div class="stat-label">Taux de conversion</div>
+                </div>
+            </div>
+            
+            <h3 style="color: var(--vert-fonce); margin: 2rem 0 1rem 0;">📋 Rapports d'évangélisation</h3>
+            <div id="listeRapports" style="background: white; border-radius: 10px; padding: 1rem; border: 2px solid var(--gris-clair);">
+                <!-- Les rapports seront ajoutés ici -->
+            </div>
+        </section>
+        
+        <!-- SECTION PLANNING D'ÉVANGÉLISATION -->
+        <section id="planning" class="section">
+            <div class="section-header">
+                <h2><span class="section-icon">📅</span> Planning Hebdomadaire d'Évangélisation</h2>
+                <button class="add-row-btn" onclick="ajouterLignePlanning()">
+                    <span class="btn-icon">➕</span> Ajouter une sortie
+                </button>
+            </div>
+            
+            <p style="color: #7f8c8d; margin-bottom: 1rem;">
+                Planifiez vos sorties d'évangélisation pour la semaine. Modifiez directement dans le tableau.
+            </p>
+            
+            <div style="overflow-x: auto;">
+                <table class="evangelisation-table">
+                    <thead>
+                        <tr>
+                            <th>Jour</th>
+                            <th>Date</th>
+                            <th>Lieu</th>
+                            <th>Heure</th>
+                            <th>Équipe</th>
+                            <th>Matériel nécessaire</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableauPlanning">
+                        <!-- Le planning sera généré ici -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="form-container" style="background: rgba(30, 126, 52, 0.05); padding: 2rem; border-radius: 10px; margin-top: 2rem;">
+                <h3 style="color: var(--vert-fonce); margin-bottom: 1rem;">📝 Notes pour la semaine</h3>
+                <textarea id="notesEvangelisation" 
+                          placeholder="Ajoutez des notes, des objectifs ou des consignes spéciales pour l'équipe d'évangélisation..."
+                          style="width: 100%; height: 100px; padding: 1rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;"></textarea>
+                <button class="btn-primary" onclick="sauvegarderNotesEvangelisation()" style="margin-top: 1rem;">
+                    💾 Sauvegarder les notes
+                </button>
+            </div>
+        </section>
+        
+        <!-- SECTION VISITES -->
+        <section id="visites" class="section">
+            <div class="section-header">
+                <h2><span class="section-icon">🚶</span> Visites Pastorales</h2>
+                <button class="btn-primary" onclick="ajouterVisite()">
+                    <span class="btn-icon">➕</span> Planifier une visite
+                </button>
+            </div>
+            
+            <div style="overflow-x: auto;">
+                <table class="visites-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Heure</th>
+                            <th>Personne/Famille</th>
+                            <th>Adresse</th>
+                            <th>Motif</th>
+                            <th>Notes</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableauVisites">
+                        <!-- Les visites seront ajoutées ici -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- SECTION RESSOURCES -->
+        <section id="ressources" class="section">
+            <div class="section-header">
+                <h2><span class="section-icon">📚</span> Ressources Spirituelles</h2>
+                <button class="btn-primary" onclick="ajouterRessource()">
+                    <span class="btn-icon">➕</span> Ajouter une ressource
+                </button>
+            </div>
+            
+            <div class="ressources-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                <!-- Les ressources seront ajoutées ici -->
+            </div>
+        </section>
+        
+        <!-- SECTION STATISTIQUES -->
+        <section id="statistiques" class="section">
+            <div class="section-header">
+                <h2><span class="section-icon">📊</span> Statistiques</h2>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="statsMembres">0</div>
+                    <div class="stat-label">Total Membres</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="statsVisites">0</div>
+                    <div class="stat-label">Visites ce mois</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="statsSorties">0</div>
+                    <div class="stat-label">Sorties d'évangélisation</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="statsConversion">0%</div>
+                    <div class="stat-label">Taux de croissance</div>
+                </div>
+            </div>
+            
+            <div class="chart-container" style="background: white; padding: 2rem; border-radius: 10px; margin: 2rem 0; box-shadow: 0 3px 10px rgba(0,0,0,0.1); border-top: 4px solid var(--vert-principal);">
+                <div class="chart-title" style="color: var(--vert-fonce); margin-bottom: 1.5rem; font-size: 1.3rem;">📈 Évolution des membres (6 derniers mois)</div>
+                <canvas id="chartMembres" style="width: 100%; height: 300px;"></canvas>
+            </div>
+            
+            <div class="chart-container" style="background: white; padding: 2rem; border-radius: 10px; margin: 2rem 0; box-shadow: 0 3px 10px rgba(0,0,0,0.1); border-top: 4px solid var(--vert-principal);">
+                <div class="chart-title" style="color: var(--vert-fonce); margin-bottom: 1.5rem; font-size: 1.3rem;">📊 Répartition par statut</div>
+                <canvas id="chartStatuts" style="width: 100%; height: 300px;"></canvas>
+            </div>
+        </section>
+        
+        <!-- SECTION PARAMÈTRES -->
+        <section id="parametres" class="section">
+            <div class="section-header">
+                <h2><span class="section-icon">⚙️</span> Paramètres</h2>
+            </div>
+            
+            <div class="form-container" style="background: rgba(30, 126, 52, 0.05); padding: 2rem; border-radius: 10px;">
+                <h3 style="color: var(--vert-fonce); margin-bottom: 1.5rem;">Préférences</h3>
+                
+                <div class="form-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Nom de l'église</label>
+                        <input type="text" id="nomEglise" class="form-control" value="Centre Chrétien de Réveil">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Verse pastoral</label>
+                        <input type="text" id="versePastoral" class="form-control" value="Jean 10:11">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Heure de début des réunions</label>
+                        <input type="time" id="heureReunions" class="form-control" value="10:00">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Notifications par email</label>
+                        <select id="notificationsEmail" class="form-control">
+                            <option value="oui">Oui</option>
+                            <option value="non">Non</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button class="btn-primary" onclick="sauvegarderParametres()" style="margin-top: 1rem;">
+                    💾 Sauvegarder les paramètres
+                </button>
+                
+                <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.5); border-radius: 8px;">
+                    <h4 style="color: var(--vert-fonce); margin-bottom: 1rem;">🗑️ Gestion des données</h4>
+                    <p style="color: #7f8c8d; margin-bottom: 1rem;">
+                        Vous pouvez exporter ou réinitialiser vos données.
+                    </p>
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn-primary" onclick="exporterDonnees()" style="background: var(--vert-principal);">
+                            📤 Exporter les données
+                        </button>
+                        <button onclick="reinitialiserDonnees()" style="
+                            background: #e74c3c;
+                            color: white;
+                            border: none;
+                            padding: 1rem 2rem;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            transition: background 0.3s;
+                        " onmouseover="this.style.background='#c0392b'" 
+                        onmouseout="this.style.background='#e74c3c'">
+                            🔄 Réinitialiser
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- MODAL POUR AJOUTER UN MEMBRE -->
+    <div id="modalMembre" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div class="modal-content" style="background: white; padding: 2rem; border-radius: 15px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; border-top: 5px solid var(--vert-principal);">
+            <h2 style="color: var(--vert-fonce); margin-bottom: 1.5rem;">👥 Ajouter un nouveau membre</h2>
+            
+            <div class="form-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Nom *</label>
+                    <input type="text" id="modalNom" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Prénom *</label>
+                    <input type="text" id="modalPrenom" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Téléphone</label>
+                    <input type="tel" id="modalTelephone" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Email</label>
+                    <input type="email" id="modalEmail" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Date de naissance</label>
+                    <input type="date" id="modalDateNaissance" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Date d'adhésion</label>
+                    <input type="date" id="modalDateAdhesion" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Statut</label>
+                    <select id="modalStatut" class="form-control">
+                        <option value="membre">Membre actif</option>
+                        <option value="visiteur">Visiteur</option>
+                        <option value="catechumene">Catéchumène</option>
+                        <option value="nouveau">Nouveau converti</option>
+                        <option value="ancien">Ancien</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Adresse</label>
+                    <textarea id="modalAdresse" class="form-control" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Notes pastorales</label>
+                    <textarea id="modalNotes" class="form-control" rows="4" 
+                              placeholder="Situation familiale, besoins spirituels, talents..."></textarea>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button class="btn-primary" onclick="enregistrerMembre()" style="flex: 1;">
+                    💾 Enregistrer
+                </button>
+                <button onclick="fermerModalMembre()" style="
+                    flex: 1;
+                    background: #95a5a6;
+                    color: white;
+                    border: none;
+                    padding: 1rem;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    transition: background 0.3s;
+                " onmouseover="this.style.background='#7f8c8d'" 
+                onmouseout="this.style.background='#95a5a6'">
+                    Annuler
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL POUR RAPPORT D'ÉVANGÉLISATION -->
+    <div id="modalRapport" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div class="modal-content" style="background: white; padding: 2rem; border-radius: 15px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; border-top: 5px solid var(--vert-principal);">
+            <h2 style="color: var(--vert-fonce); margin-bottom: 1.5rem;">📄 Nouveau rapport d'évangélisation</h2>
+            
+            <div class="form-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Date *</label>
+                    <input type="date" id="rapportDate" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Lieu *</label>
+                    <input type="text" id="rapportLieu" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Heure de début</label>
+                    <input type="time" id="rapportHeureDebut" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Heure de fin</label>
+                    <input type="time" id="rapportHeureFin" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Équipe</label>
+                    <input type="text" id="rapportEquipe" class="form-control" placeholder="Noms des participants">
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Nombre de contacts</label>
+                    <input type="number" id="rapportContacts" class="form-control" min="0" value="0">
+                </div>
+                
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Nouveaux intéressés</label>
+                    <input type="number" id="rapportInteresses" class="form-control" min="0" value="0">
+                </div>
+                
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Description de l'activité</label>
+                    <textarea id="rapportDescription" class="form-control" rows="4" 
+                              placeholder="Décrivez l'activité d'évangélisation, les rencontres significatives..."></textarea>
+                </div>
+                
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--vert-fonce); font-weight: 600;">Observations et suivi</label>
+                    <textarea id="rapportObservations" class="form-control" rows="4" 
+                              placeholder="Observations, difficultés rencontrées, besoins de suivi..."></textarea>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button class="btn-primary" onclick="enregistrerRapport()" style="flex: 1;">
+                    💾 Enregistrer le rapport
+                </button>
+                <button onclick="fermerModalRapport()" style="
+                    flex: 1;
+                    background: #95a5a6;
+                    color: white;
+                    border: none;
+                    padding: 1rem;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    transition: background 0.3s;
+                " onmouseover="this.style.background='#7f8c8d'" 
+                onmouseout="this.style.background='#95a5a6'">
+                    Annuler
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Le script JavaScript reste le même que dans le code original -->
+    <!-- Il a été copié intégralement, je ne l'ai pas modifié pour éviter d'alourdir le code -->
+    <script>
+        // ==================== DONNÉES ====================
+        let membres = JSON.parse(localStorage.getItem('membresPastoraux')) || [
+            {
+                id: 1,
+                nom: "DUPONT",
+                prenom: "Marie",
+                telephone: "01 23 45 67 89",
+                email: "marie@email.com",
+                dateNaissance: "1985-05-15",
+                dateAdhesion: "2020-01-10",
+                statut: "membre",
+                adresse: "123 Rue de la Foi, Paris",
+                notes: "Fidèle, chante dans la chorale"
+            },
+            {
+                id: 2,
+                nom: "MARTIN",
+                prenom: "Pierre",
+                telephone: "06 12 34 56 78",
+                email: "pierre@email.com",
+                dateNaissance: "1978-11-22",
+                dateAdhesion: "2021-03-05",
+                statut: "visiteur",
+                adresse: "456 Avenue de l'Espérance, Lyon",
+                notes: "Intéressé par le baptême"
+            }
+        ];
+        
+        let planningEvangelisation = JSON.parse(localStorage.getItem('planningEvangelisation')) || [
+            {
+                id: 1,
+                jour: "Lundi",
+                date: "",
+                lieu: "Marché central",
+                heure: "10:00",
+                equipe: "Pierre, Jean, Marie",
+                materiel: "Tracts, Nouveaux Testaments",
+                statut: "planifié"
+            },
+            {
+                id: 2,
+                jour: "Mercredi",
+                date: "",
+                lieu: "Campus universitaire",
+                heure: "14:00",
+                equipe: "Paul, Jacques, Lucie",
+                materiel: "Livrets d'évangélisation",
+                statut: "confirmé"
+            },
+            {
+                id: 3,
+                jour: "Samedi",
+                date: "",
+                lieu: "Parc municipal",
+                heure: "16:00",
+                equipe: "Marc, Matthieu, Sarah",
+                materiel: "Musique, chaises, brochures",
+                statut: "planifié"
+            }
+        ];
+        
+        let rapportsEvangelisation = JSON.parse(localStorage.getItem('rapportsEvangelisation')) || [];
+        
+        let visites = JSON.parse(localStorage.getItem('visitesPastorales')) || [
+            {
+                id: 1,
+                date: new Date().toISOString().split('T')[0],
+                heure: "15:00",
+                personne: "Famille DUPONT",
+                adresse: "123 Rue de la Foi, Paris",
+                motif: "Visite de suivi",
+                notes: "Rencontre pour discuter de leur intégration",
+                statut: "planifiée"
+            }
+        ];
+        
+        let ressources = JSON.parse(localStorage.getItem('ressourcesSpirituelles')) || [
+            {
+                id: 1,
+                type: "sermon",
+                titre: "La grâce de Dieu",
+                auteur: "Pasteur Jean",
+                date: "2024-01-15",
+                description: "Sermon sur la grâce salvatrice",
+                lien: "#"
+            },
+            {
+                id: 2,
+                type: "étude",
+                titre: "Étude sur l'évangélisation",
+                auteur: "Frère Pierre",
+                date: "2024-01-10",
+                description: "Guide pratique pour l'évangélisation",
+                lien: "#"
+            }
+        ];
+        
+        // ==================== FONCTIONS GÉNÉRALES ====================
+        
+        // 1. Animation de bienvenue
+        setTimeout(() => {
+            document.getElementById('welcomeOverlay').style.animation = 'fadeOut 1s ease-in-out forwards';
+            setTimeout(() => {
+                document.getElementById('welcomeOverlay').style.display = 'none';
+            }, 1000);
+        }, 3000);
+        
+        // 2. Mettre à jour la date
+        function mettreAJourDate() {
+            const maintenant = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            document.getElementById('currentDate').textContent = 
+                maintenant.toLocaleDateString('fr-FR', options);
+        }
+        
+        // 3. Navigation entre sections
+        function showSection(sectionId) {
+            // Cacher toutes les sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Afficher la section sélectionnée
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Mettre à jour le menu actif
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`a[href="#${sectionId}"]`).classList.add('active');
+            
+            // Mettre à jour les données spécifiques à chaque section
+            if (sectionId === 'membres') {
+                afficherMembres();
+            } else if (sectionId === 'planning') {
+                genererPlanning();
+            } else if (sectionId === 'evangelisation') {
+                mettreAJourStatsEvangelisation();
+                afficherRapports();
+            } else if (sectionId === 'visites') {
+                afficherVisites();
+            } else if (sectionId === 'ressources') {
+                afficherRessources();
+            } else if (sectionId === 'statistiques') {
+                mettreAJourStatsGenerales();
+                genererGraphiques();
+            } else if (sectionId === 'accueil') {
+                mettreAJourStatsAccueil();
+                afficherAgenda();
+            }
+            
+            // Scroll vers le haut
+            window.scrollTo(0, 0);
+        }
+        
+        // 4. Sauvegarde automatique
+        function sauvegarderDonnees() {
+            localStorage.setItem('membresPastoraux', JSON.stringify(membres));
+            localStorage.setItem('planningEvangelisation', JSON.stringify(planningEvangelisation));
+            localStorage.setItem('rapportsEvangelisation', JSON.stringify(rapportsEvangelisation));
+            localStorage.setItem('visitesPastorales', JSON.stringify(visites));
+            localStorage.setItem('ressourcesSpirituelles', JSON.stringify(ressources));
+        }
+        
+        // ==================== GESTION DES MEMBRES ====================
+        
+        // 5. Afficher les membres
+        function afficherMembres() {
+            const tbody = document.getElementById('listeMembres');
+            tbody.innerHTML = '';
+            
+            membres.forEach(membre => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="padding: 1rem;">${membre.nom}</td>
+                    <td style="padding: 1rem;">${membre.prenom}</td>
+                    <td style="padding: 1rem;">${membre.telephone || '-'}</td>
+                    <td style="padding: 1rem;">
+                        <span class="status-badge" style="background: ${getCouleurStatut(membre.statut)};">
+                            ${getLabelStatut(membre.statut)}
+                        </span>
+                    </td>
+                    <td style="padding: 1rem;">${formatDate(membre.dateAdhesion)}</td>
+                    <td style="padding: 1rem;">
+                        <button class="action-btn edit-btn" onclick="editerMembre(${membre.id})">
+                            ✏️
+                        </button>
+                        <button class="action-btn delete-btn" onclick="supprimerMembre(${membre.id})">
+                            🗑️
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            mettreAJourStatsAccueil();
+        }
+        
+        // 6. Ouvrir modal d'ajout de membre
+        function ajouterMembreModal() {
+            document.getElementById('modalMembre').style.display = 'flex';
+            document.getElementById('modalDateAdhesion').value = new Date().toISOString().split('T')[0];
+        }
+        
+        // 7. Fermer modal
+        function fermerModalMembre() {
+            document.getElementById('modalMembre').style.display = 'none';
+            document.getElementById('modalNom').value = '';
+            document.getElementById('modalPrenom').value = '';
+            document.getElementById('modalTelephone').value = '';
+            document.getElementById('modalEmail').value = '';
+            document.getElementById('modalDateNaissance').value = '';
+            document.getElementById('modalDateAdhesion').value = '';
+            document.getElementById('modalAdresse').value = '';
+            document.getElementById('modalNotes').value = '';
+        }
+        
+        // 8. Enregistrer un membre
+        function enregistrerMembre() {
+            const nom = document.getElementById('modalNom').value;
+            const prenom = document.getElementById('modalPrenom').value;
+            
+            if (!nom || !prenom) {
+                alert('Le nom et le prénom sont obligatoires');
+                return;
+            }
+            
+            const nouveauMembre = {
+                id: Date.now(),
+                nom: nom.toUpperCase(),
+                prenom: prenom,
+                telephone: document.getElementById('modalTelephone').value,
+                email: document.getElementById('modalEmail').value,
+                dateNaissance: document.getElementById('modalDateNaissance').value,
+                dateAdhesion: document.getElementById('modalDateAdhesion').value || new Date().toISOString().split('T')[0],
+                statut: document.getElementById('modalStatut').value,
+                adresse: document.getElementById('modalAdresse').value,
+                notes: document.getElementById('modalNotes').value
+            };
+            
+            membres.push(nouveauMembre);
+            sauvegarderDonnees();
+            afficherMembres();
+            fermerModalMembre();
+            
+            alert('Membre ajouté avec succès !');
+        }
+        
+        // 9. Supprimer un membre
+        function supprimerMembre(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce membre ?')) {
+                membres = membres.filter(m => m.id !== id);
+                sauvegarderDonnees();
+                afficherMembres();
+            }
+        }
+        
+        // 10. Éditer un membre (simplifié)
+        function editerMembre(id) {
+            const membre = membres.find(m => m.id === id);
+            if (membre) {
+                document.getElementById('modalNom').value = membre.nom;
+                document.getElementById('modalPrenom').value = membre.prenom;
+                document.getElementById('modalTelephone').value = membre.telephone;
+                document.getElementById('modalEmail').value = membre.email;
+                document.getElementById('modalDateNaissance').value = membre.dateNaissance;
+                document.getElementById('modalDateAdhesion').value = membre.dateAdhesion;
+                document.getElementById('modalStatut').value = membre.statut;
+                document.getElementById('modalAdresse').value = membre.adresse;
+                document.getElementById('modalNotes').value = membre.notes;
+                
+                document.getElementById('modalMembre').style.display = 'flex';
+                
+                // Modifier le bouton pour mettre à jour
+                const btn = document.querySelector('#modalMembre .btn-primary');
+                btn.textContent = '💾 Mettre à jour';
+                btn.onclick = function() {
+                    mettreAJourMembre(id);
+                };
+            }
+        }
+        
+        function mettreAJourMembre(id) {
+            const membre = membres.find(m => m.id === id);
+            if (membre) {
+                membre.nom = document.getElementById('modalNom').value.toUpperCase();
+                membre.prenom = document.getElementById('modalPrenom').value;
+                membre.telephone = document.getElementById('modalTelephone').value;
+                membre.email = document.getElementById('modalEmail').value;
+                membre.dateNaissance = document.getElementById('modalDateNaissance').value;
+                membre.dateAdhesion = document.getElementById('modalDateAdhesion').value;
+                membre.statut = document.getElementById('modalStatut').value;
+                membre.adresse = document.getElementById('modalAdresse').value;
+                membre.notes = document.getElementById('modalNotes').value;
+                
+                sauvegarderDonnees();
+                afficherMembres();
+                fermerModalMembre();
+                alert('Membre mis à jour avec succès !');
+            }
+        }
+        
+        // ==================== PLANNING D'ÉVANGÉLISATION ====================
+        
+        // 11. Générer le planning
+        function genererPlanning() {
+            const tbody = document.getElementById('tableauPlanning');
+            tbody.innerHTML = '';
+            
+            planningEvangelisation.forEach(sortie => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <select class="form-control" onchange="modifierPlanning(${sortie.id}, 'jour', this.value)">
+                            <option value="Lundi" ${sortie.jour === 'Lundi' ? 'selected' : ''}>Lundi</option>
+                            <option value="Mardi" ${sortie.jour === 'Mardi' ? 'selected' : ''}>Mardi</option>
+                            <option value="Mercredi" ${sortie.jour === 'Mercredi' ? 'selected' : ''}>Mercredi</option>
+                            <option value="Jeudi" ${sortie.jour === 'Jeudi' ? 'selected' : ''}>Jeudi</option>
+                            <option value="Vendredi" ${sortie.jour === 'Fridi' ? 'selected' : ''}>Vendredi</option>
+                            <option value="Samedi" ${sortie.jour === 'Samedi' ? 'selected' : ''}>Samedi</option>
+                            <option value="Dimanche" ${sortie.jour === 'Dimanche' ? 'selected' : ''}>Dimanche</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="date" class="form-control" value="${sortie.date || ''}" 
+                               onchange="modifierPlanning(${sortie.id}, 'date', this.value)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" value="${sortie.lieu}" 
+                               onchange="modifierPlanning(${sortie.id}, 'lieu', this.value)">
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" value="${sortie.heure}" 
+                               onchange="modifierPlanning(${sortie.id}, 'heure', this.value)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" value="${sortie.equipe}" 
+                               onchange="modifierPlanning(${sortie.id}, 'equipe', this.value)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" value="${sortie.materiel}" 
+                               onchange="modifierPlanning(${sortie.id}, 'materiel', this.value)">
+                    </td>
+                    <td>
+                        <select class="form-control" onchange="modifierPlanning(${sortie.id}, 'statut', this.value)">
+                            <option value="planifié" ${sortie.statut === 'planifié' ? 'selected' : ''}>Planifié</option>
+                            <option value="confirmé" ${sortie.statut === 'confirmé' ? 'selected' : ''}>Confirmé</option>
+                            <option value="terminé" ${sortie.statut === 'terminé' ? 'selected' : ''}>Terminé</option>
+                            <option value="annulé" ${sortie.statut === 'annulé' ? 'selected' : ''}>Annulé</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="action-btn delete-btn" onclick="supprimerSortiePlanning(${sortie.id})">
+                            🗑️
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // 12. Modifier une entrée du planning
+        function modifierPlanning(id, champ, valeur) {
+            const sortie = planningEvangelisation.find(s => s.id === id);
+            if (sortie) {
+                sortie[champ] = valeur;
+                sauvegarderDonnees();
+            }
+        }
+        
+        // 13. Ajouter une ligne au planning
+        function ajouterLignePlanning() {
+            const jours = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+            const nouveauJour = jours[planningEvangelisation.length % 7];
+            
+            // Calculer la date du prochain jour
+            const aujourdhui = new Date();
+            const joursAJour = planningEvangelisation.length % 7;
+            const dateFuture = new Date(aujourdhui);
+            dateFuture.setDate(aujourdhui.getDate() + joursAJour);
+            
+            const nouvelleSortie = {
+                id: Date.now(),
+                jour: nouveauJour,
+                date: dateFuture.toISOString().split('T')[0],
+                lieu: '',
+                heure: '14:00',
+                equipe: '',
+                materiel: '',
+                statut: 'planifié'
+            };
+            
+            planningEvangelisation.push(nouvelleSortie);
+            sauvegarderDonnees();
+            genererPlanning();
+        }
+        
+        // 14. Supprimer une sortie du planning
+        function supprimerSortiePlanning(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette sortie ?')) {
+                planningEvangelisation = planningEvangelisation.filter(s => s.id !== id);
+                sauvegarderDonnees();
+                genererPlanning();
+            }
+        }
+        
+        // 15. Sauvegarder les notes d'évangélisation
+        function sauvegarderNotesEvangelisation() {
+            const notes = document.getElementById('notesEvangelisation').value;
+            localStorage.setItem('notesEvangelisation', notes);
+            alert('Notes sauvegardées !');
+        }
+        
+        // ==================== RAPPORTS D'ÉVANGÉLISATION ====================
+        
+        // 16. Ajouter un rapport d'évangélisation
+        function ajouterRapportEvangelisation() {
+            document.getElementById('modalRapport').style.display = 'flex';
+            document.getElementById('rapportDate').value = new Date().toISOString().split('T')[0];
+        }
+        
+        // 17. Fermer modal de rapport
+        function fermerModalRapport() {
+            document.getElementById('modalRapport').style.display = 'none';
+        }
+        
+        // 18. Enregistrer un rapport
+        function enregistrerRapport() {
+            const nouveauRapport = {
+                id: Date.now(),
+                date: document.getElementById('rapportDate').value,
+                lieu: document.getElementById('rapportLieu').value,
+                heureDebut: document.getElementById('rapportHeureDebut').value,
+                heureFin: document.getElementById('rapportHeureFin').value,
+                equipe: document.getElementById('rapportEquipe').value,
+                contacts: parseInt(document.getElementById('rapportContacts').value) || 0,
+                interesses: parseInt(document.getElementById('rapportInteresses').value) || 0,
+                description: document.getElementById('rapportDescription').value,
+                observations: document.getElementById('rapportObservations').value,
+                statut: 'terminé'
+            };
+            
+            rapportsEvangelisation.push(nouveauRapport);
+            sauvegarderDonnees();
+            afficherRapports();
+            fermerModalRapport();
+            mettreAJourStatsEvangelisation();
+            
+            alert('Rapport enregistré avec succès !');
+        }
+        
+        // 19. Afficher les rapports
+        function afficherRapports() {
+            const container = document.getElementById('listeRapports');
+            container.innerHTML = '';
+            
+            if (rapportsEvangelisation.length === 0) {
+                container.innerHTML = '<p style="color: #7f8c8d; text-align: center; padding: 2rem;">Aucun rapport disponible</p>';
+                return;
+            }
+            
+            rapportsEvangelisation.slice().reverse().forEach(rapport => {
+                const card = document.createElement('div');
+                card.className = 'event-item';
+                card.innerHTML = `
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            <div class="event-time">${formatDate(rapport.date)} - ${rapport.lieu}</div>
+                            <div class="event-title">${rapport.description.substring(0, 100)}...</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="color: var(--vert-clair); font-weight: bold;">${rapport.contacts} contacts</div>
+                            <div style="color: #9b59b6;">${rapport.interesses} intéressés</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #7f8c8d;">
+                        Équipe: ${rapport.equipe || 'Non spécifiée'}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+        
+        // 20. Mettre à jour les stats d'évangélisation
+        function mettreAJourStatsEvangelisation() {
+            const ceMois = new Date().getMonth();
+            const sortiesCeMois = rapportsEvangelisation.filter(r => {
+                const dateRapport = new Date(r.date);
+                return dateRapport.getMonth() === ceMois;
+            }).length;
+            
+            document.getElementById('totalSorties').textContent = sortiesCeMois;
+            
+            // Calculer les contacts établis
+            const totalContacts = rapportsEvangelisation.reduce((sum, rapport) => {
+                return sum + (rapport.contacts || 0);
+            }, 0);
+            document.getElementById('contactsEtablis').textContent = totalContacts;
+            
+            // Calculer les nouveaux intéressés
+            const totalInteresses = rapportsEvangelisation.reduce((sum, rapport) => {
+                return sum + (rapport.interesses || 0);
+            }, 0);
+            document.getElementById('nouveauxInteresses').textContent = totalInteresses;
+            
+            // Calculer le taux de conversion (simplifié)
+            const taux = totalContacts > 0 ? Math.round((totalInteresses / totalContacts) * 100) : 0;
+            document.getElementById('tauxConversion').textContent = taux + '%';
+        }
+        
+        // ==================== VISITES PASTORALES ====================
+        
+        // 21. Afficher les visites
+        function afficherVisites() {
+            const tbody = document.getElementById('tableauVisites');
+            tbody.innerHTML = '';
+            
+            visites.forEach(visite => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <input type="date" class="form-control" value="${visite.date}" 
+                               onchange="modifierVisite(${visite.id}, 'date', this.value)">
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" value="${visite.heure}" 
+                               onchange="modifierVisite(${visite.id}, 'heure', this.value)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" value="${visite.personne}" 
+                               onchange="modifierVisite(${visite.id}, 'personne', this.value)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" value="${visite.adresse}" 
+                               onchange="modifierVisite(${visite.id}, 'adresse', this.value)">
+                    </td>
+                    <td>
+                        <select class="form-control" onchange="modifierVisite(${visite.id}, 'motif', this.value)">
+                            <option value="Visite de suivi" ${visite.motif === 'Visite de suivi' ? 'selected' : ''}>Visite de suivi</option>
+                            <option value="Visite malade" ${visite.motif === 'Visite malade' ? 'selected' : ''}>Visite malade</option>
+                            <option value="Visite nouveau" ${visite.motif === 'Visite nouveau' ? 'selected' : ''}>Visite nouveau</option>
+                            <option value="Visite spirituelle" ${visite.motif === 'Visite spirituelle' ? 'selected' : ''}>Visite spirituelle</option>
+                            <option value="Autre" ${visite.motif === 'Autre' ? 'selected' : ''}>Autre</option>
+                        </select>
+                    </td>
+                    <td>
+                        <textarea class="form-control" rows="2" 
+                                  onchange="modifierVisite(${visite.id}, 'notes', this.value)">${visite.notes}</textarea>
+                    </td>
+                    <td>
+                        <span class="status-badge ${getClasseStatutVisite(visite.statut)}">
+                            ${visite.statut}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="action-btn delete-btn" onclick="supprimerVisite(${visite.id})">
+                            🗑️
+                        </button>
+                        <button class="action-btn save-btn" onclick="marquerVisiteTerminee(${visite.id})">
+                            ✓
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // 22. Ajouter une visite
+        function ajouterVisite() {
+            const nouvelleVisite = {
+                id: Date.now(),
+                date: new Date().toISOString().split('T')[0],
+                heure: "15:00",
+                personne: "",
+                adresse: "",
+                motif: "Visite de suivi",
+                notes: "",
+                statut: "planifiée"
+            };
+            
+            visites.push(nouvelleVisite);
+            sauvegarderDonnees();
+            afficherVisites();
+        }
+        
+        // 23. Modifier une visite
+        function modifierVisite(id, champ, valeur) {
+            const visite = visites.find(v => v.id === id);
+            if (visite) {
+                visite[champ] = valeur;
+                sauvegarderDonnees();
+            }
+        }
+        
+        // 24. Supprimer une visite
+        function supprimerVisite(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette visite ?')) {
+                visites = visites.filter(v => v.id !== id);
+                sauvegarderDonnees();
+                afficherVisites();
+            }
+        }
+        
+        // 25. Marquer une visite comme terminée
+        function marquerVisiteTerminee(id) {
+            const visite = visites.find(v => v.id === id);
+            if (visite) {
+                visite.statut = "terminée";
+                sauvegarderDonnees();
+                afficherVisites();
+            }
+        }
+        
+        // ==================== RESSOURCES SPIRITUELLES ====================
+        
+        // 26. Afficher les ressources
+        function afficherRessources() {
+            const container = document.querySelector('.ressources-grid');
+            container.innerHTML = '';
+            
+            // Regrouper par type
+            const ressourcesParType = {};
+            ressources.forEach(ressource => {
+                if (!ressourcesParType[ressource.type]) {
+                    ressourcesParType[ressource.type] = [];
+                }
+                ressourcesParType[ressource.type].push(ressource);
+            });
+            
+            // Afficher par type
+            for (const [type, liste] of Object.entries(ressourcesParType)) {
+                const card = document.createElement('div');
+                card.className = 'ressource-card';
+                card.style.cssText = 'background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: transform 0.3s;';
+                
+                let titreType = '';
+                let icon = '';
+                switch(type) {
+                    case 'sermon':
+                        titreType = 'Sermons';
+                        icon = '📖';
+                        break;
+                    case 'étude':
+                        titreType = 'Études bibliques';
+                        icon = '📚';
+                        break;
+                    case 'chant':
+                        titreType = 'Chants';
+                        icon = '🎵';
+                        break;
+                    default:
+                        titreType = type;
+                        icon = '📄';
+                }
+                
+                card.innerHTML = `
+                    <div class="ressource-header" style="background: var(--vert-fonce); color: white; padding: 1rem; text-align: center; font-weight: bold;">
+                        ${icon} ${titreType}
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <ul style="list-style: none; padding: 0;">
+                            ${liste.map(r => `
+                                <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--gris-clair); display: flex; justify-content: space-between; align-items: center;">
+                                    <span>${r.titre}</span>
+                                    <small style="color: #7f8c8d;">${formatDate(r.date)}</small>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+                container.appendChild(card);
+            }
+        }
+        
+        // 27. Ajouter une ressource
+        function ajouterRessource() {
+            const types = ['sermon', 'étude', 'chant', 'document'];
+            const titres = ['Nouveau sermon', 'Étude biblique', 'Nouveau chant', 'Document pastoral'];
+            
+            const type = types[ressources.length % types.length];
+            const titre = titres[ressources.length % titres.length];
+            
+            const nouvelleRessource = {
+                id: Date.now(),
+                type: type,
+                titre: titre,
+                auteur: "Pasteur",
+                date: new Date().toISOString().split('T')[0],
+                description: "Description à compléter",
+                lien: "#"
+            };
+            
+            ressources.push(nouvelleRessource);
+            sauvegarderDonnees();
+            afficherRessources();
+            
+            alert('Ressource ajoutée !');
+        }
+        
+        // ==================== STATISTIQUES ====================
+        
+        // 28. Mettre à jour les statistiques générales
+        function mettreAJourStatsGenerales() {
+            document.getElementById('statsMembres').textContent = membres.length;
+            
+            // Visites ce mois
+            const ceMois = new Date().getMonth();
+            const visitesCeMois = visites.filter(v => {
+                const dateVisite = new Date(v.date);
+                return dateVisite.getMonth() === ceMois;
+            }).length;
+            document.getElementById('statsVisites').textContent = visitesCeMois;
+            
+            // Sorties ce mois
+            const sortiesCeMois = rapportsEvangelisation.filter(r => {
+                const dateRapport = new Date(r.date);
+                return dateRapport.getMonth() === ceMois;
+            }).length;
+            document.getElementById('statsSorties').textContent = sortiesCeMois;
+            
+            // Taux de croissance (simplifié)
+            const croissance = membres.length > 0 ? Math.round((membres.filter(m => m.statut === 'nouveau').length / membres.length) * 100) : 0;
+            document.getElementById('statsConversion').textContent = croissance + '%';
+        }
+        
+        // 29. Générer les graphiques
+        function genererGraphiques() {
+            // Graphique d'évolution des membres
+            const ctxMembres = document.getElementById('chartMembres');
+            if (ctxMembres) {
+                // Données simulées pour 6 mois
+                const labels = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'];
+                const data = [45, 48, 52, 55, 58, membres.length];
+                
+                // Créer un graphique simple avec des barres
+                const canvas = ctxMembres.getContext('2d');
+                canvas.clearRect(0, 0, ctxMembres.width, ctxMembres.height);
+                
+                // Dessiner les barres
+                const barWidth = 40;
+                const maxHeight = Math.max(...data);
+                const scale = 200 / maxHeight;
+                
+                canvas.fillStyle = 'var(--vert-principal)';
+                for (let i = 0; i < data.length; i++) {
+                    const height = data[i] * scale;
+                    canvas.fillRect(60 + i * 60, 250 - height, barWidth, height);
+                    canvas.fillStyle = 'var(--vert-fonce)';
+                    canvas.fillText(labels[i], 60 + i * 60 + barWidth/2 - 10, 270);
+                    canvas.fillText(data[i], 60 + i * 60 + barWidth/2 - 10, 240 - height);
+                    canvas.fillStyle = 'var(--vert-principal)';
+                }
+            }
+            
+            // Graphique de répartition par statut
+            const ctxStatuts = document.getElementById('chartStatuts');
+            if (ctxStatuts) {
+                const statuts = {};
+                membres.forEach(membre => {
+                    statuts[membre.statut] = (statuts[membre.statut] || 0) + 1;
+                });
+                
+                const labels = Object.keys(statuts).map(s => getLabelStatut(s));
+                const data = Object.values(statuts);
+                const colors = Object.keys(statuts).map(s => getCouleurStatut(s));
+                
+                const canvas = ctxStatuts.getContext('2d');
+                canvas.clearRect(0, 0, ctxStatuts.width, ctxStatuts.height);
+                
+                // Dessiner un camembert simple
+                let startAngle = 0;
+                const total = data.reduce((a, b) => a + b, 0);
+                const centerX = 150;
+                const centerY = 150;
+                const radius = 100;
+                
+                for (let i = 0; i < data.length; i++) {
+                    const sliceAngle = 2 * Math.PI * data[i] / total;
+                    
+                    canvas.beginPath();
+                    canvas.fillStyle = colors[i];
+                    canvas.moveTo(centerX, centerY);
+                    canvas.arc(centerX, centerY, radius, startAngle, startAngle + sliceAngle);
+                    canvas.closePath();
+                    canvas.fill();
+                    
+                    // Légende
+                    const legendX = 300;
+                    const legendY = 30 + i * 25;
+                    canvas.fillStyle = colors[i];
+                    canvas.fillRect(legendX, legendY, 15, 15);
+                    canvas.fillStyle = 'var(--vert-fonce)';
+                    canvas.fillText(`${labels[i]}: ${data[i]} (${Math.round(data[i]/total*100)}%)`, legendX + 20, legendY + 12);
+                    
+                    startAngle += sliceAngle;
+                }
+            }
+        }
+        
+        // ==================== ACCUEIL ====================
+        
+        // 30. Mettre à jour les stats de l'accueil
+        function mettreAJourStatsAccueil() {
+            document.getElementById('totalMembres').textContent = membres.length;
+            
+            // Visites cette semaine
+            const aujourdhui = new Date();
+            const debutSemaine = new Date(aujourdhui);
+            debutSemaine.setDate(aujourdhui.getDate() - aujourdhui.getDay());
+            
+            const visitesCetteSemaine = visites.filter(v => {
+                const dateVisite = new Date(v.date);
+                return dateVisite >= debutSemaine && dateVisite <= aujourdhui;
+            }).length;
+            document.getElementById('totalVisites').textContent = visitesCetteSemaine;
+            
+            // Sorties cette semaine
+            const sortiesCetteSemaine = planningEvangelisation.filter(p => {
+                return p.statut === 'terminé' || p.statut === 'confirmé';
+            }).length;
+            document.getElementById('totalEvangelisation').textContent = sortiesCetteSemaine;
+            
+            // Nouveaux membres ce mois
+            const ceMois = new Date().getMonth();
+            const nouveauxCeMois = membres.filter(m => {
+                const dateAdhesion = new Date(m.dateAdhesion);
+                return dateAdhesion.getMonth() === ceMois && 
+                       dateAdhesion.getFullYear() === new Date().getFullYear();
+            }).length;
+            document.getElementById('nouveauxMembres').textContent = nouveauxCeMois;
+        }
+        
+        // 31. Afficher l'agenda du jour
+        function afficherAgenda() {
+            const container = document.getElementById('agendaAujourdhui');
+            const aujourdhui = new Date().toISOString().split('T')[0];
+            
+            // Événements du jour
+            const events = [];
+            
+            // Ajouter les visites du jour
+            const visitesAujourdhui = visites.filter(v => v.date === aujourdhui);
+            visitesAujourdhui.forEach(v => {
+                events.push({
+                    time: v.heure,
+                    title: `Visite: ${v.personne}`,
+                    type: 'visite'
+                });
+            });
+            
+            // Ajouter les sorties d'évangélisation du jour
+            const sortiesAujourdhui = planningEvangelisation.filter(p => p.date === aujourdhui);
+            sortiesAujourdhui.forEach(s => {
+                events.push({
+                    time: s.heure,
+                    title: `Évangélisation: ${s.lieu}`,
+                    type: 'evangelisation'
+                });
+            });
+            
+            if (events.length === 0) {
+                container.innerHTML = '<p style="color: #7f8c8d; text-align: center; padding: 2rem;">Aucun événement prévu aujourd\'hui</p>';
+            } else {
+                container.innerHTML = events.map(event => `
+                    <div class="event-item" style="background: rgba(30, 126, 52, 0.05); padding: 1rem; margin-bottom: 0.5rem; border-radius: 8px; border-left: 4px solid var(--vert-principal);">
+                        <div class="event-time" style="color: var(--vert-principal); font-weight: bold; font-size: 0.9rem;">${event.time}</div>
+                        <div class="event-title" style="color: var(--vert-fonce); font-weight: 600; margin-top: 0.3rem;">${event.title}</div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        // 32. Sauvegarder les prières
+        function sauvegarderPrieres() {
+            const prieres = document.getElementById('priereTextarea').value;
+            localStorage.setItem('prieresPastorales', prieres);
+            alert('Sujets de prière sauvegardés !');
+        }
+        
+        // ==================== PARAMÈTRES ====================
+        
+        // 33. Sauvegarder les paramètres
+        function sauvegarderParametres() {
+            const parametres = {
+                nomEglise: document.getElementById('nomEglise').value,
+                versePastoral: document.getElementById('versePastoral').value,
+                heureReunions: document.getElementById('heureReunions').value,
+                notificationsEmail: document.getElementById('notificationsEmail').value
+            };
+            
+            localStorage.setItem('parametresEglise', JSON.stringify(parametres));
+            alert('Paramètres sauvegardés !');
+        }
+        
+        // 34. Exporter les données
+        function exporterDonnees() {
+            const data = {
+                membres: membres,
+                planning: planningEvangelisation,
+                rapports: rapportsEvangelisation,
+                visites: visites,
+                ressources: ressources
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'centre-chretien-donnees.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // 35. Réinitialiser les données
+        function reinitialiserDonnees() {
+            if (confirm('Êtes-vous sûr de vouloir réinitialiser toutes les données ? Cette action est irréversible.')) {
+                localStorage.clear();
+                membres = [];
+                planningEvangelisation = [];
+                rapportsEvangelisation = [];
+                visites = [];
+                ressources = [];
+                
+                // Recharger la page
+                location.reload();
+            }
+        }
+        
+        // ==================== FONCTIONS UTILITAIRES ====================
+        
+        function getCouleurStatut(statut) {
+            const couleurs = {
+                'membre': 'var(--vert-clair)',
+                'visiteur': 'var(--vert-principal)',
+                'catechumene': '#9b59b6',
+                'nouveau': '#f1c40f',
+                'ancien': '#e67e22'
+            };
+            return couleurs[statut] || '#95a5a6';
+        }
+        
+        function getLabelStatut(statut) {
+            const labels = {
+                'membre': 'Membre actif',
+                'visiteur': 'Visiteur',
+                'catechumene': 'Catéchumène',
+                'nouveau': 'Nouveau converti',
+                'ancien': 'Ancien'
+            };
+            return labels[statut] || statut;
+        }
+        
+        function getClasseStatutVisite(statut) {
+            const classes = {
+                'planifiée': 'status-planifie',
+                'confirmée': 'status-confirme',
+                'terminée': 'status-termine',
+                'annulée': 'status-annule'
+            };
+            return classes[statut] || '';
+        }
+        
+        function formatDate(dateString) {
+            if (!dateString) return '-';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR');
+        }
+        
+        // 36. Déconnexion
+        function deconnexion() {
+            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                alert('Vous êtes déconnecté. Vos données sont sauvegardées localement.');
+                // En production, rediriger vers une page de login
+                // window.location.href = 'login.html';
+            }
+        }
+        
+        // ==================== INITIALISATION ====================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mettre à jour la date
+            mettreAJourDate();
+            setInterval(mettreAJourDate, 60000);
+            
+            // Charger les données sauvegardées
+            const notesEvangelisation = localStorage.getItem('notesEvangelisation');
+            if (notesEvangelisation) {
+                document.getElementById('notesEvangelisation').value = notesEvangelisation;
+            }
+            
+            const prieres = localStorage.getItem('prieresPastorales');
+            if (prieres) {
+                document.getElementById('priereTextarea').value = prieres;
+            }
+            
+            const parametres = JSON.parse(localStorage.getItem('parametresEglise'));
+            if (parametres) {
+                document.getElementById('nomEglise').value = parametres.nomEglise;
+                document.getElementById('versePastoral').value = parametres.versePastoral;
+                document.getElementById('heureReunions').value = parametres.heureReunions;
+                document.getElementById('notificationsEmail').value = parametres.notificationsEmail;
+            }
+            
+            // Initialiser les vues
+            mettreAJourStatsAccueil();
+            afficherMembres();
+            genererPlanning();
+            mettreAJourStatsEvangelisation();
+            afficherRapports();
+            afficherVisites();
+            afficherRessources();
+            mettreAJourStatsGenerales();
+            afficherAgenda();
+        });
+    </script>
+</body>
+</html>
