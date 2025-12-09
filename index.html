@@ -32,7 +32,339 @@
             display: flex;
             min-height: 100vh;
         }
-        
+        /* ============ STYLE APPLICATION MOBILE ============ */
+
+/* Header mobile */
+.app-header {
+    display: none; /* Caché par défaut sur desktop */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--vert-principal), var(--vert-fonce));
+    color: white;
+    padding: 1rem;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 24px;
+}
+
+.hamburger span {
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+.hamburger span:nth-child(1) { width: 20px; }
+.hamburger span:nth-child(2) { width: 16px; }
+.hamburger span:nth-child(3) { width: 20px; }
+
+.app-title h1 {
+    font-size: 1.2rem;
+    margin: 0;
+    color: white;
+}
+
+.app-subtitle {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.header-right {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.header-btn {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.header-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* Sidebar style application */
+.app-sidebar {
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 300px;
+    height: 100vh;
+    background: white;
+    box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+    z-index: 1000;
+    transition: left 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.app-sidebar.active {
+    left: 0;
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--vert-principal), var(--vert-fonce));
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.church-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.church-logo-small {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.church-info h3 {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.church-verse {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    margin: 0.2rem 0 0 0;
+}
+
+.close-sidebar {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+.close-sidebar:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.sidebar-search {
+    padding: 1rem;
+    background: var(--gris-clair);
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 25px;
+    background: white;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.nav-section {
+    margin-bottom: 1.5rem;
+}
+
+.nav-title {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    color: var(--noir);
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 0.3rem;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    background: rgba(30, 126, 52, 0.1);
+    color: var(--vert-principal);
+    transform: translateX(5px);
+}
+
+.nav-icon {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    width: 24px;
+    text-align: center;
+}
+
+.sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid var(--gris-clair);
+    background: #f8f9fa;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background: var(--vert-principal);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.user-name {
+    font-weight: bold;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.user-role {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    margin: 0;
+}
+
+.app-version {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #95a5a6;
+}
+
+/* Overlay pour fermer le menu */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+    backdrop-filter: blur(2px);
+}
+
+.sidebar-overlay.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Contenu principal ajusté */
+.app-content {
+    flex: 1;
+    margin-right: 250px;
+    padding: 2rem;
+    margin-top: 0;
+    transition: margin-left 0.3s ease;
+}
+
+/* Mode sombre */
+body.dark-mode {
+    background: #1a1a1a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .section,
+body.dark-mode .main-header,
+body.dark-mode .stat-card {
+    background: #2d2d2d;
+    color: #e0e0e0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .app-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .sidebar {
+        display: none; /* Cacher la sidebar originale sur mobile */
+    }
+    
+    .app-content {
+        margin-right: 0;
+        margin-top: 70px; /* Pour le header fixe */
+        padding: 1rem;
+    }
+    
+    .main-header {
+        margin-top: 1rem;
+    }
+    
+    .welcome-text {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-sidebar {
+        width: 85%;
+        left: -85%;
+    }
+    
+    .app-content {
+        padding: 0.5rem;
+    }
+    
+    .section {
+        padding: 1rem;
+    }
+}
         /* ANIMATION DE BIENVENUE AVEC LOGO */
         .welcome-overlay {
             position: fixed;
@@ -544,6 +876,249 @@
             .welcome-text {
                 font-size: 1.8rem;
             }
+            /* ==================== AMÉLIORATIONS MOBILE ==================== */
+@media (max-width: 768px) {
+    /* Corps principal */
+    body {
+        flex-direction: column;
+        padding: 0;
+    }
+    
+    /* Sidebar devient un header horizontal */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 0.5rem 0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .church-logo {
+        display: none; /* Cache le logo en mobile */
+    }
+    
+    .nav-menu {
+        display: flex;
+        overflow-x: auto;
+        padding: 0 0.5rem;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .nav-menu li {
+        margin: 0.2rem;
+        flex-shrink: 0;
+    }
+    
+    .nav-menu a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .nav-icon {
+        font-size: 1rem;
+        margin-right: 5px;
+    }
+    
+    /* Contenu principal */
+    .main-content {
+        margin-right: 0;
+        margin-top: 60px; /* Compense la sidebar fixe */
+        padding: 1rem;
+        width: 100%;
+        border-radius: 0;
+    }
+    
+    /* Header principal */
+    .main-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .header-title h1 {
+        font-size: 1.5rem;
+    }
+    
+    .current-date {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Sections */
+    .section {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    /* Grids */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .stat-card {
+        padding: 1rem;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+    }
+    
+    /* Tableaux */
+    .evangelisation-table,
+    .visites-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Layout à 2 colonnes */
+    div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    /* Modals */
+    .modal-content {
+        width: 95%;
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    /* Boutons */
+    .btn-primary {
+        padding: 0.8rem 1.2rem;
+        font-size: 0.9rem;
+        width: 100%;
+    }
+    
+    /* Animation de bienvenue */
+    .welcome-text {
+        font-size: 2rem;
+    }
+    
+    .welcome-subtext {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .logo-circle {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .logo-circle img {
+        width: 80px;
+    }
+}
+
+/* Pour les très petits écrans */
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav-menu a {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .welcome-text {
+        font-size: 1.8rem;
+    }
+    
+    .logo-circle {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .logo-circle img {
+        width: 70px;
+    }
+    
+    /* Amélioration de la lisibilité */
+    .form-control,
+    input,
+    select,
+    textarea {
+        font-size: 16px !important; /* Évite le zoom sur iOS */
+    }
+    
+    /* Boutons plus grands pour le tactile */
+    button,
+    .action-btn {
+        min-height: 44px; /* Taille minimale pour le tactile */
+        min-width: 44px;
+    }
+}
+
+/* Pour les tablettes en mode portrait */
+@media (min-width: 481px) and (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .nav-menu {
+        justify-content: center;
+    }
+    
+    .main-content {
+        margin-top: 70px;
+    }
+}
+
+/* Empêche le zoom sur les inputs sur iOS */
+@media screen and (max-width: 768px) {
+    input[type="text"],
+    input[type="number"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="date"],
+    input[type="time"],
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* Améliore le scroll sur mobile */
+@media (max-width: 768px) {
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+    
+    body {
+        overflow-x: hidden;
+    }
+    
+    /* Meilleure expérience tactile */
+    .btn-primary:active,
+    .action-btn:active,
+    button:active {
+        transform: scale(0.98);
+    }
+}
         }
     </style>
 </head>
@@ -560,7 +1135,130 @@
         <div class="welcome-text">Bienvenue, Berger</div>
         <div class="welcome-subtext">Que Dieu bénisse votre ministère et vous guide dans la gestion du troupeau</div>
     </div>
+      <header class="app-header">
+        <div class="header-left">
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <div class="app-title">
+                <h1>🌿 Berger Connect</h1>
+                <p class="app-subtitle">Gestion Pastorale</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <button class="header-btn" onclick="showSection('accueil')" title="Accueil">
+                🏠
+            </button>
+            <button class="header-btn" onclick="toggleDarkMode()" title="Mode nuit">
+                🌙
+            </button>
+        </div>
+    </header>
+
+    <!-- MENU LATÉRAL GAUCHE (STYLE APPLICATION) -->
+    <div class="app-sidebar" id="appSidebar">
+        <div class="sidebar-header">
+            <div class="church-info">
+                <img src="logo-eglise.jpg" alt="Logo" class="church-logo-small">
+                <div>
+                    <h3>Centre Chrétien de Réveil</h3>
+                    <p class="church-verse">Jean 10:11</p>
+                </div>
+            </div>
+            <button class="close-sidebar" onclick="toggleMenu()">&times;</button>
+        </div>
+        
+        <div class="sidebar-search">
+            <input type="text" placeholder="🔍 Rechercher..." class="search-input">
+        </div>
+        
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <h4 class="nav-title">📋 Tableau de bord</h4>
+                <a href="#" onclick="showSection('accueil'); toggleMenu();" class="nav-link">
+                    <span class="nav-icon">📊</span> Vue d'ensemble
+                </a>
+            </div>
+            
+            <div class="nav-section">
+                <h4 class="nav-title">👥 Gestion pastorale</h4>
+                <a href="#" onclick="showSection('membres'); toggleMenu();" class="nav-link">
+                    <span class="nav-icon">👥</span> Membres
+                </a>
+                <a href="#" onclick="showSection('visites'); toggleMenu();" class="nav-link">
+                    <span class="nav-icon">🚶</span> Visites
+                </a>
+                <a href="#" onclick="showSection('planning'); toggleMenu();" class="nav-link">
+                    <span class="nav-icon">📅</span> Planning
+                </a>
+            </div>
+            
+            <div class="nav-section">
+                <h4 class="nav-title">📢 Évangélisation</h4>
+                <a href="#" onclick="showSection('evangelisation'); toggleMenu();" class="nav-link">
+                    <span class="nav-icon">📢</span> Rapports
+                </a>
+                <a href="#" onclick="showSection('statistiques'); toggleMenu();" class="nav-link">
+                    <span class="nav-icon">📈</span> Statistiques
+                </a>
+            </div>
+            
+            <div class="nav-section">
+                <h4 class="nav-title">📚 Ressources</h4>
+                <a href="#" onclick="showSection('ressources'); toggleMenu();" class="nav-link">
+                    <span class="nav-icon">📖</span> Sermons
+                </a>
+                <a href="#" onclick="showSection('ressources'); toggleMenu();" class="nav-link">
+                    <span class="nav-icon">🎵</span> Chants
+                </a>
+            </div>
+            
+            <div class="nav-section">
+                <h4 class="nav-title">⚙️ Paramètres</h4>
+                <a href="#" onclick="showSection('parametres'); toggleMenu();" class="nav-link">
+                    <span class="nav-icon">⚙️</span> Configuration
+                </a>
+                <a href="#" class="nav-link" onclick="deconnexion(); toggleMenu();">
+                    <span class="nav-icon">🚪</span> Déconnexion
+                </a>
+            </div>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">B</div>
+                <div>
+                    <p class="user-name">Berger</p>
+                    <p class="user-role">Pasteur</p>
+                </div>
+            </div>
+            <div class="app-version">v1.0.0</div>
+        </div>
+    </div>
     
+    <!-- OVERLAY POUR FERMER LE MENU -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
+
+    <!-- VOTRE CONTENU EXISTANT (modifié pour s'adapter) -->
+    <main class="app-content">
+        <!-- Gardez tout votre contenu actuel ici -->
+        <!-- ... votre code existant ... -->
+    </main>
+
+    <!-- Votre sidebar originale à droite (je la garde mais peut être cachée sur mobile) -->
+    <nav class="sidebar">
+        <!-- ... votre sidebar existante ... -->
+    </nav>
+    <!-- Ajoutez ceci juste après la balise <body> -->
+<div class="hamburger-menu" onclick="togglePastoralMenu()">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+</div>
     <!-- NAVIGATION VERTICALE DROITE -->
     <nav class="sidebar">
        <div class="church-logo">
@@ -1224,7 +1922,89 @@
             document.getElementById('currentDate').textContent = 
                 maintenant.toLocaleDateString('fr-FR', options);
         }
-        
+        // ==================== MENU APPLICATION ====================
+
+function toggleMenu() {
+    const sidebar = document.getElementById('appSidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const hamburger = document.querySelector('.hamburger');
+    
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+    
+    // Animation hamburger
+    if (hamburger) {
+        hamburger.classList.toggle('active');
+    }
+}
+
+// Fermer le menu avec Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const sidebar = document.getElementById('appSidebar');
+        if (sidebar && sidebar.classList.contains('active')) {
+            toggleMenu();
+        }
+    }
+});
+
+// Mode sombre/nuit
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    
+    // Changer l'icône
+    const btn = event.target.closest('.header-btn');
+    if (btn) {
+        btn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        btn.title = document.body.classList.contains('dark-mode') ? 'Mode jour' : 'Mode nuit';
+    }
+}
+
+// Charger le mode sombre
+if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark-mode');
+    const darkBtn = document.querySelector('[title="Mode nuit"]');
+    if (darkBtn) {
+        darkBtn.textContent = '☀️';
+        darkBtn.title = 'Mode jour';
+    }
+}
+
+// Fermer le menu quand on clique sur un lien
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function() {
+        setTimeout(() => {
+            toggleMenu();
+        }, 300);
+    });
+});
+
+// Mettre à jour l'affichage responsive
+function updateLayout() {
+    const isMobile = window.innerWidth <= 768;
+    const sidebar = document.querySelector('.sidebar');
+    
+    if (isMobile) {
+        if (sidebar) sidebar.style.display = 'none';
+    } else {
+        if (sidebar) sidebar.style.display = 'block';
+    }
+}
+
+// Écouter les changements de taille
+window.addEventListener('resize', updateLayout);
+updateLayout(); // Initial
+
+// Ajouter à votre DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    // ... votre code existant ...
+    
+    // Initialiser le mode sombre
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+});
         // 3. Navigation entre sections
         function showSection(sectionId) {
             // Cacher toutes les sections
