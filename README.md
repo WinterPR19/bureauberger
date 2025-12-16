@@ -13,12 +13,4 @@ Appliquer les bases du développement web
 
 Technologies utilisées
 
-HTML
-
-CSS
-
-JavaScript
-
-PHP
-
-MySQL
+HTML pur avec insertion de CSS ,JavaScript ,PHP ,MySQL
