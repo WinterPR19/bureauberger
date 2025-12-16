@@ -15,8 +15,7 @@
             --gris-clair: #ecf0f1;          /* Arrière-plan clair */
             --blanc: #ffffff;               /* Blanc pur */
         }
-        
-        /* RESET ET BASES */
+      
         * {
             margin: 0;
             padding: 0;
@@ -32,7 +31,6 @@
             display: flex;
             min-height: 100vh;
         }
-        /* ============ STYLE APPLICATION MOBILE ============ */
 
 /* Header mobile */
 .app-header {
@@ -112,7 +110,6 @@
     background: rgba(255,255,255,0.2);
 }
 
-/* Sidebar style application */
 .app-sidebar {
     position: fixed;
     top: 0;
@@ -283,8 +280,6 @@
     font-size: 0.7rem;
     color: #95a5a6;
 }
-
-/* Overlay pour fermer le menu */
 .sidebar-overlay {
     position: fixed;
     top: 0;
@@ -302,7 +297,6 @@
     animation: fadeIn 0.3s ease;
 }
 
-/* Contenu principal ajusté */
 .app-content {
     flex: 1;
     margin-right: 250px;
@@ -311,7 +305,6 @@
     transition: margin-left 0.3s ease;
 }
 
-/* Mode sombre */
 body.dark-mode {
     background: #1a1a1a;
     color: #e0e0e0;
@@ -323,8 +316,6 @@ body.dark-mode .stat-card {
     background: #2d2d2d;
     color: #e0e0e0;
 }
-
-/* Responsive */
 @media (max-width: 768px) {
     .app-header {
         display: flex;
@@ -333,12 +324,12 @@ body.dark-mode .stat-card {
     }
     
     .sidebar {
-        display: none; /* Cacher la sidebar originale sur mobile */
+        display: none; 
     }
     
     .app-content {
         margin-right: 0;
-        margin-top: 70px; /* Pour le header fixe */
+        margin-top: 70px; 
         padding: 1rem;
     }
     
@@ -365,7 +356,7 @@ body.dark-mode .stat-card {
         padding: 1rem;
     }
 }
-        /* ANIMATION DE BIENVENUE AVEC LOGO */
+        /* ANIMATION DE BIENVENUE AVEC le  LOGO */
         .welcome-overlay {
             position: fixed;
             top: 0;
@@ -445,7 +436,6 @@ body.dark-mode .stat-card {
             100% { opacity: 0; visibility: hidden; }
         }
         
-        /* NAVIGATION VERTICALE À DROITE - THEME VERT */
         .sidebar {
             width: 250px;
             background: linear-gradient(180deg, var(--vert-fonce) 0%, var(--vert-principal) 100%);
@@ -519,17 +509,12 @@ body.dark-mode .stat-card {
             margin-right: 10px;
             font-size: 1.2rem;
         }
-        
-        /* CONTENU PRINCIPAL */
-        /* Pour garder les sections blanches */
 .main-content {
     flex: 1;
     margin-right: 250px;
     padding: 2rem;
-    /* PAS de background-color ici ! */
 }
-        
-        /* HEADER PRINCIPAL */
+    
         .main-header {
             background: var(--blanc);
             border-radius: 15px;
@@ -611,7 +596,6 @@ body.dark-mode .stat-card {
             color: var(--vert-principal);
         }
         
-        /* BOUTONS PRINCIPAUX - THEME VERT */
         .btn-primary {
             background: linear-gradient(135deg, var(--vert-principal), var(--vert-fonce));
             color: var(--blanc);
@@ -800,7 +784,6 @@ body.dark-mode .stat-card {
             border-left: 4px solid var(--vert-principal);
         }
         
-        /* RESPONSIVE */
         @media (max-width: 1024px) {
             .sidebar {
                 width: 200px;
@@ -876,15 +859,13 @@ body.dark-mode .stat-card {
             .welcome-text {
                 font-size: 1.8rem;
             }
-            /* ==================== AMÉLIORATIONS MOBILE ==================== */
+            
 @media (max-width: 768px) {
-    /* Corps principal */
+   
     body {
         flex-direction: column;
         padding: 0;
     }
-    
-    /* Sidebar devient un header horizontal */
     .sidebar {
         width: 100%;
         height: auto;
@@ -898,7 +879,7 @@ body.dark-mode .stat-card {
     }
     
     .church-logo {
-        display: none; /* Cache le logo en mobile */
+        display: none; 
     }
     
     .nav-menu {
@@ -923,17 +904,13 @@ body.dark-mode .stat-card {
         font-size: 1rem;
         margin-right: 5px;
     }
-    
-    /* Contenu principal */
     .main-content {
         margin-right: 0;
-        margin-top: 60px; /* Compense la sidebar fixe */
+        margin-top: 60px; 
         padding: 1rem;
         width: 100%;
         border-radius: 0;
     }
-    
-    /* Header principal */
     .main-header {
         flex-direction: column;
         text-align: center;
@@ -967,7 +944,6 @@ body.dark-mode .stat-card {
         font-size: 1.4rem;
     }
     
-    /* Grids */
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
@@ -989,20 +965,17 @@ body.dark-mode .stat-card {
         -webkit-overflow-scrolling: touch;
     }
     
-    /* Layout à 2 colonnes */
     div[style*="grid-template-columns: 1fr 1fr"] {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
     
-    /* Modals */
     .modal-content {
         width: 95%;
         padding: 1.5rem;
         margin: 1rem;
     }
     
-    /* Boutons */
     .btn-primary {
         padding: 0.8rem 1.2rem;
         font-size: 0.9rem;
@@ -1062,13 +1035,13 @@ body.dark-mode .stat-card {
     input,
     select,
     textarea {
-        font-size: 16px !important; /* Évite le zoom sur iOS */
+        font-size: 16px !important; 
     }
     
     /* Boutons plus grands pour le tactile */
     button,
     .action-btn {
-        min-height: 44px; /* Taille minimale pour le tactile */
+        min-height: 44px; 
         min-width: 44px;
     }
 }
@@ -1127,7 +1100,6 @@ body.dark-mode .stat-card {
     <div class="welcome-overlay" id="welcomeOverlay">
         <div class="logo-container">
     <div class="logo-circle">
-        <!-- Remplacez "logo-eglise.png" par le nom de votre fichier image -->
         <img src="logo-eglise.webp" alt="Centre Chrétien de Réveil" 
              style="width: 120px; height: auto; border-radius: 50%;">
     </div>
@@ -1159,7 +1131,6 @@ body.dark-mode .stat-card {
         </div>
     </header>
 
-    <!-- MENU LATÉRAL GAUCHE (STYLE APPLICATION) -->
     <div class="app-sidebar" id="appSidebar">
         <div class="sidebar-header">
             <div class="church-info">
@@ -1240,29 +1211,23 @@ body.dark-mode .stat-card {
         </div>
     </div>
     
-    <!-- OVERLAY POUR FERMER LE MENU -->
+  
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
 
-    <!-- VOTRE CONTENU EXISTANT (modifié pour s'adapter) -->
+
     <main class="app-content">
-        <!-- Gardez tout votre contenu actuel ici -->
-        <!-- ... votre code existant ... -->
+        
     </main>
 
-    <!-- Votre sidebar originale à droite (je la garde mais peut être cachée sur mobile) -->
     <nav class="sidebar">
-        <!-- ... votre sidebar existante ... -->
     </nav>
-    <!-- Ajoutez ceci juste après la balise <body> -->
 <div class="hamburger-menu" onclick="togglePastoralMenu()">
     <div class="bar"></div>
     <div class="bar"></div>
     <div class="bar"></div>
 </div>
-    <!-- NAVIGATION VERTICALE DROITE -->
     <nav class="sidebar">
        <div class="church-logo">
-    <!-- Remplacez "logo-icon.png" par le nom de votre fichier image -->
     <img src="logo-eglise.jpg" alt="Logo" 
          style="width: 60px; height: 60px; margin-bottom: 10px; border-radius: 50%;">
     <h2>Centre Chrétien de Réveil</h2>
@@ -1332,7 +1297,6 @@ body.dark-mode .stat-card {
                 <p>"Paissez le troupeau de Dieu qui est sous votre garde" - 1 Pierre 5:2</p>
             </div>
             <div class="current-date" id="currentDate">
-                <!-- La date s'affichera ici -->
             </div>
         </header>
         
@@ -1800,8 +1764,6 @@ body.dark-mode .stat-card {
         </div>
     </div>
 
-    <!-- Le script JavaScript reste le même que dans le code original -->
-    <!-- Il a été copié intégralement, je ne l'ai pas modifié pour éviter d'alourdir le code -->
     <script>
         // ==================== DONNÉES ====================
         let membres = JSON.parse(localStorage.getItem('membresPastoraux')) || [
@@ -2906,4 +2868,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     </script>
 </body>
+
 </html>
